@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -36,8 +37,10 @@ room['treasure'].s_to = room['narrow']
 #
 # Main
 #
-
+print("\n\nWELCOME TO ADVENTURE TIME \n\n\nPress 'q' to quit the game\n")
+name = input("Type your name to start: ")
 # Make a new player object that is currently in the 'outside' room.
+player = Player(name, room['outside'])
 
 # Write a loop that:
 #
@@ -49,3 +52,32 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+# print(f"{player}\n{room[player.current_room]}")
+
+# print(room['outside'].n_to)
+print(f"\n\n{player}\n{player.current_room}")
+selection = ""
+
+while selection != "q":
+    selection = input("Choose a direction you want your player to move to: ").lower()
+    try:
+        if selection == "n":
+            if player.current_room.n_to:
+                player.current_room = player.current_room.n_to
+                print(f"{player} \n{player.current_room}")
+        elif selection == "s":
+            if player.current_room.s_to:
+                player.current_room = player.current_room.s_to
+                print(f"{player} \n{player.current_room}")
+        elif selection == "w":
+            if player.current_room.w_to:
+                player.current_room = player.current_room.w_to
+                print(f"{player} \n{player.current_room}")
+        elif selection == "e":
+            if player.current_room.e_to:
+                player.current_room = player.current_room.e_to
+                print(f"{player} \n{player.current_room}")
+        else:
+            print(f"wrong selection, try again")
+    except:
+        print("YOU'VE HIT A DEADEND, please choose a different direction to move to")
